@@ -1,20 +1,36 @@
 <template>
-  <div id="app">
+  <div id="app" :style="{'font-family': font}">
     <md-content class="navi-desktop">
       <md-list>
-        <md-list-item to="/damage">
-          <md-icon>colorize</md-icon>
-          <span class="md-list-item-text">{{$t('Damage')}}</span>
+        <md-list-item to="/">
+          <md-icon>home</md-icon>
+          <span class="md-list-item-text">{{$t('Home')}}</span>
         </md-list-item>
 
-        <md-list-item to="/random">
-          <md-icon>star</md-icon>
-          <span class="md-list-item-text">{{$t('Random')}}</span>
+        <md-list-item md-expand :md-expanded="true">
+          <md-icon>colorize</md-icon>
+          <span class="md-list-item-text">{{$t('Damage')}}</span>
+
+          <md-list slot="md-expand">
+            <md-list-item class="md-inset" to="/damage#damage">{{$t('Damage Value')}}</md-list-item>
+            <md-list-item class="md-inset" to="/damage#stun">{{$t('Stun Gauge')}}</md-list-item>
+          </md-list>
         </md-list-item>
 
         <md-list-item to="/order">
           <md-icon>timer</md-icon>
           <span class="md-list-item-text">{{$t('Order')}}</span>
+        </md-list-item>
+
+        <md-list-item md-expand :md-expanded="true">
+          <md-icon>star</md-icon>
+          <span class="md-list-item-text">{{$t('Probability')}}</span>
+
+          <md-list slot="md-expand">
+            <md-list-item class="md-inset" to="/probability#critical">{{$t('Critical Rate')}}</md-list-item>
+            <md-list-item class="md-inset" to="/probability#hate">{{$t('Hate & AI')}}</md-list-item>
+            <md-list-item class="md-inset" to="/probability#gacha">{{$t('Gacha')}}</md-list-item>
+          </md-list>
         </md-list-item>
 
         <md-list-item to="/status">
@@ -24,7 +40,7 @@
       </md-list>
     </md-content>
 
-    <md-toolbar class="md-primary">
+    <md-toolbar class="toolbar-desktop md-primary" style="position: fixed;">
       <h3 class="md-title" style="flex: 1">{{$t('KiraFanCalc')}}</h3>
       <md-menu md-direction="bottom-start">
         <md-button md-menu-trigger class="md-icon-button">
@@ -32,19 +48,34 @@
         </md-button>
 
         <md-menu-content>
-          <md-menu-item @click="setLocale('jp')">日本語</md-menu-item>
+          <md-menu-item @click="setLocale('ja')">日本語</md-menu-item>
           <md-menu-item @click="setLocale('zh')">中文</md-menu-item>
           <md-menu-item @click="setLocale('en')">English</md-menu-item>
         </md-menu-content>
       </md-menu>
     </md-toolbar>
+
     <div class="view">
+      <md-toolbar class="toolbar-phone md-primary">
+        <h3 class="md-title" style="flex: 1">{{$t('KiraFanCalc')}}</h3>
+        <md-menu md-direction="bottom-start">
+          <md-button md-menu-trigger class="md-icon-button">
+            <md-icon>translate</md-icon>
+          </md-button>
+
+          <md-menu-content>
+            <md-menu-item @click="setLocale('ja')">日本語</md-menu-item>
+            <md-menu-item @click="setLocale('zh')">中文</md-menu-item>
+            <md-menu-item @click="setLocale('en')">English</md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </md-toolbar>
       <router-view/>
     </div>
     <md-bottom-bar class="navi-phone" md-type="shift" md-sync-route>
       <md-bottom-bar-item to="/damage" md-icon="colorize" :md-label="$t('Damage')"></md-bottom-bar-item>
-      <md-bottom-bar-item to="/random" md-icon="star" :md-label="$t('Random')"></md-bottom-bar-item>
       <md-bottom-bar-item to="/order" md-icon="timer" :md-label="$t('Order')"></md-bottom-bar-item>
+      <md-bottom-bar-item to="/probability" md-icon="star" :md-label="$t('Probability')"></md-bottom-bar-item>
       <md-bottom-bar-item to="/status" md-icon="face" :md-label="$t('Status')"></md-bottom-bar-item>
     </md-bottom-bar>
   </div>
@@ -54,6 +85,17 @@
 export default {
   name: "app",
   components: {},
+  computed: {
+    font() {
+      return {
+        ja:
+          "'Avenir', Verdana, 'Helvetica', Verdana, 'ヒラギノ角ゴシック', 'Hiragino Sans', 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif",
+        zh:
+          "'Avenir', Verdana, 'Helvetica', Verdana, 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei', 'Microsoft Yahei', sans-serif",
+        en: "'Avenir', Verdana, 'Helvetica', Verdana, Arial, sans-serif"
+      }[this.$i18n.locale];
+    }
+  },
   methods: {
     setLocale(lang) {
       this.$i18n.locale = lang;
@@ -89,9 +131,12 @@ export default {
 @import "~vue-material/src/components/MdLayout/mixins";
 
 .view {
-  padding: 8px 8px 8px 264px;
+  padding: 64px 0 0 256px;
+  @include md-layout-small {
+    padding: 48px 0 0 256px;
+  }
   @include md-layout-xsmall {
-    padding: 8px 8px 64px 8px;
+    padding: 0 0 64px 0;
   }
 }
 
@@ -116,14 +161,30 @@ export default {
   flex-direction: column;
   overflow: auto;
   position: fixed;
-  top: 64px;
-  @include md-layout-small {
-    top: 48px;
-  }
+  top: 0;
   bottom: 0;
   left: 0;
+  padding: 64px 0px 0px 0px;
+  @include md-layout-small {
+    padding: 48px 0px 0px 0px;
+  }
   .md-list-item {
     width: 256px;
   }
+}
+
+.toolbar-phone {
+  display: none !important;
+  @include md-layout-xsmall {
+    display: flex !important;
+  }
+}
+
+.toolbar-desktop {
+  @include md-layout-xsmall {
+    display: none !important;
+  }
+  position: fixed;
+  top: 0;
 }
 </style>

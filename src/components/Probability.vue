@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  name: "Random"
+  name: "Probability"
 };
 </script>

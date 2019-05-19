@@ -1,73 +1,74 @@
 <template>
   <div>
-    <md-card>
+    <md-card class="card" id="damage">
       <md-card-header>
-        <div class="md-title">{{$t('Damage Calculation')}}</div>
-        <md-card-expand-trigger class="expand-trigger">
-          <md-button class="md-icon-button">
-            <md-icon>keyboard_arrow_down</md-icon>
-          </md-button>
-        </md-card-expand-trigger>
+        <div class="md-title">{{$t('Damage Value')}}</div>
       </md-card-header>
 
-      <md-card-expand>
-        <md-card-expand-content>
-          <md-card-content>
-            <div class="md-layout md-gutter content-desktop">
-              <div class="md-layout-item">
-                <p class="md-subheading">{{$t('Basic')}}</p>
-                <div class="md-layout md-gutter">
-                  <div class="md-layout-item md-size-50">
-                    <md-field>
-                      <label>{{$t('Attack')}}</label>
-                      <md-input v-model="basic.attack" type="number"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-50">
-                    <md-field>
-                      <label>{{$t('Defence')}}</label>
-                      <md-input v-model="basic.defence" type="number"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-100">
-                    <md-field>
-                      <label>{{$t('Skill/%')}}</label>
-                      <md-input v-model="basic.skill" type="number"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-100">
-                    <md-field>
-                      <label>{{$t('Critical')}}</label>
-                      <md-select v-model="basic.criticalCoef">
-                        <md-option value="1.5">{{$t('Critical')}}</md-option>
-                        <md-option value="1.0">{{$t('Not Critical')}}</md-option>
-                      </md-select>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-100">
-                    <md-field>
-                      <label>{{$t('Element')}}</label>
-                      <md-select v-model="basic.elementCoef">
-                        <md-option value="0.5">{{$t('Regist')}}</md-option>
-                        <md-option value="1.0">{{$t('Default')}}</md-option>
-                        <md-option value="2.0">{{$t('Weak')}}</md-option>
-                      </md-select>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-100">
-                    <md-field>
-                      <label>{{$t('Kirara Jump')}}</label>
-                      <md-select v-model="basic.kiraraJumpCoef">
-                        <md-option value="1.0">{{$t('1st')}}</md-option>
-                        <md-option value="1.5">{{$t('2nd')}}</md-option>
-                        <md-option value="2.0">{{$t('3rd')}}</md-option>
-                      </md-select>
-                    </md-field>
-                  </div>
-                </div>
+      <md-card-content>
+        <div class="md-layout md-gutter content-desktop">
+          <div class="md-layout-item">
+            <p class="md-subheading">{{$t('Basic')}}</p>
+            <div class="md-layout md-gutter">
+              <div class="md-layout-item md-size-50">
+                <md-field>
+                  <label>{{$t('Attack')}}</label>
+                  <md-input v-model="basic.attack" type="number"></md-input>
+                </md-field>
               </div>
-              <div class="md-layout-item">
-                <p class="md-subheading">{{$t('Chara')}}</p>
+
+              <div class="md-layout-item md-size-50">
+                <md-field>
+                  <label>{{$t('Defence')}}</label>
+                  <md-input v-model="basic.defence" type="number"></md-input>
+                </md-field>
+              </div>
+
+              <div class="md-layout-item md-size-100">
+                <md-field>
+                  <label>{{$t('Skill/%')}}</label>
+                  <md-input v-model="basic.skill" type="number"></md-input>
+                </md-field>
+              </div>
+
+              <div class="md-layout-item md-size-100">
+                <md-field>
+                  <label>{{$t('Critical')}}</label>
+                  <md-select v-model="basic.criticalCoef">
+                    <md-option value="1.5">{{$t('Critical')}}</md-option>
+                    <md-option value="1.0">{{$t('Not Critical')}}</md-option>
+                  </md-select>
+                </md-field>
+              </div>
+
+              <div class="md-layout-item md-size-50">
+                <md-field>
+                  <label>{{$t('Element')}}</label>
+                  <md-select v-model="basic.elementCoef">
+                    <md-option value="2.0">{{$t('Weak')}}</md-option>
+                    <md-option value="1.0">{{$t('Default')}}</md-option>
+                    <md-option value="0.5">{{$t('Resist')}}</md-option>
+                  </md-select>
+                </md-field>
+              </div>
+
+              <div class="md-layout-item md-size-50">
+                <md-field>
+                  <label>{{$t('Kirara Jump')}}</label>
+                  <md-select v-model="basic.kiraraJumpCoef">
+                    <md-option value="1.0">{{$t('1st')}}</md-option>
+                    <md-option value="1.5">{{$t('2nd')}}</md-option>
+                    <md-option value="2.0">{{$t('3rd')}}</md-option>
+                  </md-select>
+                </md-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="md-layout-item">
+            <p class="md-subheading">{{$t('Chara')}}</p>
+            <div class="md-layout md-gutter">
+              <div class="md-layout-item md-size-100">
                 <md-chips
                   v-model="chara.StatusChange "
                   md-input-type="number"
@@ -75,7 +76,9 @@
                 >
                   <label>{{$t('Attack Change/%')}}</label>
                 </md-chips>
+              </div>
 
+              <div class="md-layout-item md-size-100">
                 <md-chips
                   v-model="chara.WeakElementBonus"
                   md-input-type="number"
@@ -83,7 +86,9 @@
                 >
                   <label>{{$t('Weak Element Bonus/%')}}</label>
                 </md-chips>
+              </div>
 
+              <div class="md-layout-item md-size-100">
                 <md-chips
                   v-model="chara.NextAttackUp"
                   md-input-type="number"
@@ -92,7 +97,9 @@
                 >
                   <label>{{$t('Next Attack Up/%')}}</label>
                 </md-chips>
+              </div>
 
+              <div class="md-layout-item md-size-100">
                 <md-chips
                   v-model="chara.CriticalDamageChange"
                   md-input-type="number"
@@ -101,8 +108,13 @@
                   <label>{{$t('Critical Damage Change/%')}}</label>
                 </md-chips>
               </div>
-              <div class="md-layout-item">
-                <p class="md-subheading">{{$t('Enemy')}}</p>
+            </div>
+          </div>
+
+          <div class="md-layout-item">
+            <p class="md-subheading">{{$t('Enemy')}}</p>
+            <div class="md-layout md-gutter">
+              <div class="md-layout-item md-size-100">
                 <md-chips
                   v-model="enemy.StatusChange "
                   md-input-type="number"
@@ -110,7 +122,9 @@
                 >
                   <label>{{$t('Defence Change/%')}}</label>
                 </md-chips>
+              </div>
 
+              <div class="md-layout-item md-size-100">
                 <md-chips
                   v-model="enemy.ElementResist"
                   md-input-type="number"
@@ -120,116 +134,100 @@
                 </md-chips>
               </div>
             </div>
+          </div>
+        </div>
 
-            <md-tabs class="content-phone">
-              <md-tab :md-label="$t('Basic')">
-                <div class="md-layout md-gutter">
-                  <div class="md-layout-item md-size-50">
-                    <md-field>
-                      <label>{{$t('Attack')}}</label>
-                      <md-input v-model="basic.attack" type="number"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-50">
-                    <md-field>
-                      <label>{{$t('Defence')}}</label>
-                      <md-input v-model="basic.defence" type="number"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-100">
-                    <md-field>
-                      <label>{{$t('Skill/%')}}</label>
-                      <md-input v-model="basic.skill" type="number"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-100">
-                    <md-field>
-                      <label>{{$t('Critical')}}</label>
-                      <md-select v-model="basic.criticalCoef">
-                        <md-option value="1.5">{{$t('Critical')}}</md-option>
-                        <md-option value="1.0">{{$t('Not Critical')}}</md-option>
-                      </md-select>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-100">
-                    <md-field>
-                      <label>{{$t('Element')}}</label>
-                      <md-select v-model="basic.elementCoef">
-                        <md-option value="0.5">{{$t('Regist')}}</md-option>
-                        <md-option value="1.0">{{$t('Default')}}</md-option>
-                        <md-option value="2.0">{{$t('Weak')}}</md-option>
-                      </md-select>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-100">
-                    <md-field>
-                      <label>{{$t('Kirara Jump')}}</label>
-                      <md-select v-model="basic.kiraraJumpCoef">
-                        <md-option value="1.0">{{$t('1st')}}</md-option>
-                        <md-option value="1.5">{{$t('2nd')}}</md-option>
-                        <md-option value="2.0">{{$t('3rd')}}</md-option>
-                      </md-select>
-                    </md-field>
-                  </div>
-                </div>
-              </md-tab>
+        <md-tabs class="content-phone">
+          <md-tab :md-label="$t('Basic')">
+            <div class="md-layout md-gutter">
+              <div class="md-layout-item md-size-50">
+                <md-field>
+                  <label>{{$t('Attack')}}</label>
+                  <md-input v-model="basic.attack" type="number"></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-size-50">
+                <md-field>
+                  <label>{{$t('Defence')}}</label>
+                  <md-input v-model="basic.defence" type="number"></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-size-100">
+                <md-field>
+                  <label>{{$t('Skill/%')}}</label>
+                  <md-input v-model="basic.skill" type="number"></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-size-100">
+                <md-field>
+                  <label>{{$t('Critical')}}</label>
+                  <md-select v-model="basic.criticalCoef">
+                    <md-option value="1.5">{{$t('Critical')}}</md-option>
+                    <md-option value="1.0">{{$t('Not Critical')}}</md-option>
+                  </md-select>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-size-50">
+                <md-field>
+                  <label>{{$t('Element')}}</label>
+                  <md-select v-model="basic.elementCoef">
+                    <md-option value="2.0">{{$t('Weak')}}</md-option>
+                    <md-option value="1.0">{{$t('Default')}}</md-option>
+                    <md-option value="0.5">{{$t('Resist')}}</md-option>
+                  </md-select>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-size-50">
+                <md-field>
+                  <label>{{$t('Kirara Jump')}}</label>
+                  <md-select v-model="basic.kiraraJumpCoef">
+                    <md-option value="1.0">{{$t('1st')}}</md-option>
+                    <md-option value="1.5">{{$t('2nd')}}</md-option>
+                    <md-option value="2.0">{{$t('3rd')}}</md-option>
+                  </md-select>
+                </md-field>
+              </div>
+            </div>
+          </md-tab>
 
-              <md-tab :md-label="$t('Chara')">
-                <md-chips
-                  v-model="chara.StatusChange "
-                  md-input-type="number"
-                  :md-format="isNumber"
-                >
-                  <label>{{$t('Attack Change/%')}}</label>
-                </md-chips>
+          <md-tab :md-label="$t('Chara')">
+            <md-chips v-model="chara.StatusChange " md-input-type="number" :md-format="isNumber">
+              <label>{{$t('Attack Change/%')}}</label>
+            </md-chips>
 
-                <md-chips
-                  v-model="chara.WeakElementBonus"
-                  md-input-type="number"
-                  :md-format="isNumber"
-                >
-                  <label>{{$t('Weak Element Bonus/%')}}</label>
-                </md-chips>
+            <md-chips v-model="chara.WeakElementBonus" md-input-type="number" :md-format="isNumber">
+              <label>{{$t('Weak Element Bonus/%')}}</label>
+            </md-chips>
 
-                <md-chips
-                  v-model="chara.NextAttackUp"
-                  md-input-type="number"
-                  :md-format="isNumber"
-                  :md-limit="1"
-                >
-                  <label>{{$t('Next Attack Up/%')}}</label>
-                </md-chips>
+            <md-chips
+              v-model="chara.NextAttackUp"
+              md-input-type="number"
+              :md-format="isNumber"
+              :md-limit="1"
+            >
+              <label>{{$t('Next Attack Up/%')}}</label>
+            </md-chips>
 
-                <md-chips
-                  v-model="chara.CriticalDamageChange"
-                  md-input-type="number"
-                  :md-format="isNumber"
-                >
-                  <label>{{$t('Critical Damage Change/%')}}</label>
-                </md-chips>
-              </md-tab>
+            <md-chips
+              v-model="chara.CriticalDamageChange"
+              md-input-type="number"
+              :md-format="isNumber"
+            >
+              <label>{{$t('Critical Damage Change/%')}}</label>
+            </md-chips>
+          </md-tab>
 
-              <md-tab :md-label="$t('Enemy')">
-                <md-chips
-                  v-model="enemy.StatusChange "
-                  md-input-type="number"
-                  :md-format="isNumber"
-                >
-                  <label>{{$t('Defence Change/%')}}</label>
-                </md-chips>
+          <md-tab :md-label="$t('Enemy')">
+            <md-chips v-model="enemy.StatusChange " md-input-type="number" :md-format="isNumber">
+              <label>{{$t('Defence Change/%')}}</label>
+            </md-chips>
 
-                <md-chips
-                  v-model="enemy.ElementResist"
-                  md-input-type="number"
-                  :md-format="isNumber"
-                >
-                  <label>{{$t('Element Resist/%')}}</label>
-                </md-chips>
-              </md-tab>
-            </md-tabs>
-          </md-card-content>
-        </md-card-expand-content>
-      </md-card-expand>
+            <md-chips v-model="enemy.ElementResist" md-input-type="number" :md-format="isNumber">
+              <label>{{$t('Element Resist/%')}}</label>
+            </md-chips>
+          </md-tab>
+        </md-tabs>
+      </md-card-content>
 
       <md-divider/>
 
@@ -240,6 +238,70 @@
             {{damageAverage.toFixed(0)}}
             ±
             {{damageVariance.toFixed(0)}}
+          </span>
+        </p>
+      </md-card-content>
+    </md-card>
+
+    <md-card class="card" id="stun">
+      <md-card-header>
+        <div class="md-title" id="Stun">{{$t('Stun Gauge')}}</div>
+      </md-card-header>
+
+      <md-card-content>
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item md-size-33 md-small-size-50">
+            <md-field>
+              <label>{{$t('Damage')}}</label>
+              <md-input v-model="stun.damage" type="number"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-size-33 md-small-size-50">
+            <md-field>
+              <label>{{$t('Max HP')}}</label>
+              <md-input v-model="stun.MaxHP" type="number"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-size-33 md-small-size-50">
+            <md-field>
+              <label>{{$t('Stun Coefficient')}}</label>
+              <md-input v-model="stun.StunCoef" type="number"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-size-33 md-small-size-50">
+            <md-field>
+              <label>{{$t('Element')}}</label>
+              <md-select v-model="basic.elementCoef">
+                <md-option value="2.0">{{$t('Weak')}}</md-option>
+                <md-option value="1.0">{{$t('Default')}}</md-option>
+                <md-option value="0.5">{{$t('Resist')}}</md-option>
+              </md-select>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-size-33 md-small-size-100">
+            <md-chips v-model="chara.WeakElementBonus" md-input-type="number" :md-format="isNumber">
+              <label>{{$t('Weak Element Bonus/%')}}</label>
+            </md-chips>
+          </div>
+          <div class="md-layout-item md-size-33 md-small-size-100">
+            <md-chips v-model="enemy.ElementResist" md-input-type="number" :md-format="isNumber">
+              <label>{{$t('Element Resist/%')}}</label>
+            </md-chips>
+          </div>
+        </div>
+      </md-card-content>
+
+      <md-divider/>
+
+      <md-card-content>
+        <p class="md-display-1">
+          {{$t('Stun =')}}
+          <span style="float: right">{{(stunGauge*100).toFixed(1)}}%</span>
+        </p>
+        <p class="md-display-1">
+          <span style="font-size: 85%">
+            {{$t('Damage Needed =')}}
+            <span style="float: right">{{damageNeeded.toFixed(0)}}</span>
           </span>
         </p>
       </md-card-content>
@@ -280,6 +342,11 @@ export default {
       enemy: {
         StatusChange: [],
         ElementResist: []
+      },
+      stun: {
+        damage: 0,
+        MaxHP: 0,
+        StunCoef: 0.8
       }
     };
   },
@@ -345,6 +412,18 @@ export default {
     },
     nextAttackUp() {
       return this.chara.NextAttackUp.reduce(sum, 0) / 100;
+    },
+    stunGauge() {
+      let stun = this.stun.damage / this.stun.MaxHP;
+      stun *= this.stun.StunCoef;
+      stun *= this.elementCoef;
+      return clamp(stun, 0, 1);
+    },
+    damageNeeded() {
+      let damage = this.stun.MaxHP;
+      damage /= this.stun.StunCoef;
+      damage /= this.elementCoef;
+      return clamp(damage, 0, 357913952);
     }
   },
   methods: {
@@ -352,6 +431,11 @@ export default {
       let x = Number.parseFloat(str);
       if (isNaN(x)) return false;
       return (x > 0 ? "+" : "") + x + "%" + " ".repeat(this.spaceRepeat++);
+    }
+  },
+  watch: {
+    damageAverage: function() {
+      this.stun.damage = this.damageAverage.toFixed(0);
     }
   }
 };
@@ -377,5 +461,9 @@ export default {
   @include md-layout-small {
     display: block;
   }
+}
+
+.card {
+  margin: 8px;
 }
 </style>
