@@ -6,11 +6,11 @@ Vue.config.productionTip = false
 import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
 const i18n = new VueI18n({
-  locale: 'jp',    // 语言标识
+  locale: 'ja',    // 语言标识
   //this.$i18n.locale // 通过切换locale的值来实现语言切换
   messages: {
-    'jp': require('./i18n/jp'),
-    // 'en': require('./i18n/en'),
+    'ja': require('./i18n/ja'),
+    'zh': require('./i18n/zh'),
   }
 })
 
