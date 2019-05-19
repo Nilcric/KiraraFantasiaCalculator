@@ -72,7 +72,7 @@
                 <md-chips
                   v-model="chara.StatusChange "
                   md-input-type="number"
-                  :md-format="isNumber"
+                  :md-format="isPercent"
                 >
                   <label>{{$t('Attack Change/%')}}</label>
                 </md-chips>
@@ -82,7 +82,7 @@
                 <md-chips
                   v-model="chara.WeakElementBonus"
                   md-input-type="number"
-                  :md-format="isNumber"
+                  :md-format="isPercent"
                 >
                   <label>{{$t('Weak Element Bonus/%')}}</label>
                 </md-chips>
@@ -92,7 +92,7 @@
                 <md-chips
                   v-model="chara.NextAttackUp"
                   md-input-type="number"
-                  :md-format="isNumber"
+                  :md-format="isPercent"
                   :md-limit="1"
                 >
                   <label>{{$t('Next Attack Up/%')}}</label>
@@ -103,7 +103,7 @@
                 <md-chips
                   v-model="chara.CriticalDamageChange"
                   md-input-type="number"
-                  :md-format="isNumber"
+                  :md-format="isPercent"
                 >
                   <label>{{$t('Critical Damage Change/%')}}</label>
                 </md-chips>
@@ -118,7 +118,7 @@
                 <md-chips
                   v-model="enemy.StatusChange "
                   md-input-type="number"
-                  :md-format="isNumber"
+                  :md-format="isPercent"
                 >
                   <label>{{$t('Defence Change/%')}}</label>
                 </md-chips>
@@ -128,7 +128,7 @@
                 <md-chips
                   v-model="enemy.ElementResist"
                   md-input-type="number"
-                  :md-format="isNumber"
+                  :md-format="isPercent"
                 >
                   <label>{{$t('Element Resist/%')}}</label>
                 </md-chips>
@@ -191,18 +191,22 @@
           </md-tab>
 
           <md-tab :md-label="$t('Chara')">
-            <md-chips v-model="chara.StatusChange " md-input-type="number" :md-format="isNumber">
+            <md-chips v-model="chara.StatusChange " md-input-type="number" :md-format="isPercent">
               <label>{{$t('Attack Change/%')}}</label>
             </md-chips>
 
-            <md-chips v-model="chara.WeakElementBonus" md-input-type="number" :md-format="isNumber">
+            <md-chips
+              v-model="chara.WeakElementBonus"
+              md-input-type="number"
+              :md-format="isPercent"
+            >
               <label>{{$t('Weak Element Bonus/%')}}</label>
             </md-chips>
 
             <md-chips
               v-model="chara.NextAttackUp"
               md-input-type="number"
-              :md-format="isNumber"
+              :md-format="isPercent"
               :md-limit="1"
             >
               <label>{{$t('Next Attack Up/%')}}</label>
@@ -211,18 +215,18 @@
             <md-chips
               v-model="chara.CriticalDamageChange"
               md-input-type="number"
-              :md-format="isNumber"
+              :md-format="isPercent"
             >
               <label>{{$t('Critical Damage Change/%')}}</label>
             </md-chips>
           </md-tab>
 
           <md-tab :md-label="$t('Enemy')">
-            <md-chips v-model="enemy.StatusChange " md-input-type="number" :md-format="isNumber">
+            <md-chips v-model="enemy.StatusChange " md-input-type="number" :md-format="isPercent">
               <label>{{$t('Defence Change/%')}}</label>
             </md-chips>
 
-            <md-chips v-model="enemy.ElementResist" md-input-type="number" :md-format="isNumber">
+            <md-chips v-model="enemy.ElementResist" md-input-type="number" :md-format="isPercent">
               <label>{{$t('Element Resist/%')}}</label>
             </md-chips>
           </md-tab>
@@ -279,12 +283,16 @@
             </md-field>
           </div>
           <div class="md-layout-item md-size-33 md-small-size-100">
-            <md-chips v-model="chara.WeakElementBonus" md-input-type="number" :md-format="isNumber">
+            <md-chips
+              v-model="chara.WeakElementBonus"
+              md-input-type="number"
+              :md-format="isPercent"
+            >
               <label>{{$t('Weak Element Bonus/%')}}</label>
             </md-chips>
           </div>
           <div class="md-layout-item md-size-33 md-small-size-100">
-            <md-chips v-model="enemy.ElementResist" md-input-type="number" :md-format="isNumber">
+            <md-chips v-model="enemy.ElementResist" md-input-type="number" :md-format="isPercent">
               <label>{{$t('Element Resist/%')}}</label>
             </md-chips>
           </div>
@@ -427,7 +435,7 @@ export default {
     }
   },
   methods: {
-    isNumber(str) {
+    isPercent(str) {
       let x = Number.parseFloat(str);
       if (isNaN(x)) return false;
       return (x > 0 ? "+" : "") + x + "%" + " ".repeat(this.spaceRepeat++);

@@ -70,7 +70,10 @@
           </md-menu-content>
         </md-menu>
       </md-toolbar>
-      <router-view/>
+
+      <keep-alive>
+        <router-view class="router-view"/>
+      </keep-alive>
     </div>
     <md-bottom-bar class="navi-phone" md-type="shift" md-sync-route>
       <md-bottom-bar-item to="/damage" md-icon="colorize" :md-label="$t('Damage')"></md-bottom-bar-item>

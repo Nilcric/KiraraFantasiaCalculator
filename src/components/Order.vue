@@ -22,13 +22,17 @@
           </div>
 
           <div class="md-layout-item md-size-50 md-small-size-100">
-            <md-chips v-model="order.StatusChange" md-input-type="number" :md-format="isNumber">
+            <md-chips v-model="order.StatusChange" md-input-type="number" :md-format="isPercent">
               <label>{{$t('Speed Change/%')}}</label>
             </md-chips>
           </div>
 
           <div class="md-layout-item md-size-50 md-small-size-100">
-            <md-chips v-model="order.LoadFactorReduce" md-input-type="number" :md-format="isNumber">
+            <md-chips
+              v-model="order.LoadFactorReduce"
+              md-input-type="number"
+              :md-format="isPercent"
+            >
               <label>{{$t('Load Factor Reduce/%')}}</label>
             </md-chips>
           </div>
@@ -72,7 +76,7 @@ export default {
     };
   },
   methods: {
-    isNumber(str) {
+    isPercent(str) {
       let x = Number.parseFloat(str);
       if (isNaN(x)) return false;
       return (x > 0 ? "+" : "") + x + "%" + " ".repeat(this.spaceRepeat++);

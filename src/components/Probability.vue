@@ -22,7 +22,7 @@
           </div>
 
           <div class="md-layout-item md-size-50 md-small-size-100">
-            <md-chips v-model="critical.StatusChange" md-input-type="number" :md-format="isNumber">
+            <md-chips v-model="critical.StatusChange" md-input-type="number" :md-format="isPercent">
               <label>{{$t('Luck Change/%')}}</label>
             </md-chips>
           </div>
@@ -49,6 +49,57 @@
         </p>
       </md-card-content>
     </md-card>
+
+    <md-card class="card" id="hate">
+      <md-card-header>
+        <div class="md-title">{{$t('Hate & AI')}}</div>
+      </md-card-header>
+
+      <md-card-content>
+        <div class="md-layout md-gutter content-desktop">
+          <div class="md-layout-item md-size-33" v-for="i in [0, 1, 2]" :key="i">
+            <md-checkbox v-model="hate.exist[i]" class="md-primary">
+              <p class="md-subheading">{{$t('Chara ' + (i+1))}}</p>
+            </md-checkbox>
+            <md-chips v-model="hate.hateChange[i] " md-input-type="number" :md-format="isPercent">
+              <label>{{$t('Hate Change/%')}}</label>
+            </md-chips>
+            <md-chips v-model="hate.AICondition[i] " md-input-type="number" :md-format="isNumber">
+              <label>{{$t('AI Condition')}}</label>
+            </md-chips>
+          </div>
+        </div>
+
+        <md-tabs class="content-phone">
+          <md-tab v-for="i in [0, 1, 2]" :key="i" :md-label="$t('Chara ' + (i+1))">
+            <md-checkbox v-model="hate.exist[i]" class="md-primary">{{$t('Exist')}}</md-checkbox>
+            <md-chips v-model="hate.hateChange[i] " md-input-type="number" :md-format="isPercent">
+              <label>{{$t('Hate Change/%')}}</label>
+            </md-chips>
+            <md-chips v-model="hate.AICondition[i] " md-input-type="number" :md-format="isNumber">
+              <label>{{$t('AI Condition')}}</label>
+            </md-chips>
+          </md-tab>
+        </md-tabs>
+      </md-card-content>
+
+      <md-divider/>
+
+      <md-card-content>
+        <p class="md-display-1 content-phone">
+          {{$t('Target =')}}
+          <span style="float: right">
+            <span v-for="(item, i) in target" :key="i">{{(item*100).toFixed(1)}}%&nbsp;&nbsp;</span>
+          </span>
+        </p>
+        <p class="md-display-1 content-desktop">{{$t('Target =')}}</p>
+        <div class="md-layout md-gutter content-desktop">
+          <div class="md-layout-item md-size-33" v-for="(item, i) in target" :key="i">
+            <span class="md-display-1" style="float: right">{{(item*100).toFixed(1)}}%</span>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 
@@ -73,14 +124,24 @@ export default {
         luck2: null,
         StatusChange: [],
         elementCoef: 1.0
+      },
+      hate: {
+        exist: [true, true, true],
+        hateChange: [[], [], []],
+        AICondition: [[], [], []]
       }
     };
   },
   methods: {
-    isNumber(str) {
+    isPercent(str) {
       let x = Number.parseFloat(str);
       if (isNaN(x)) return false;
       return (x > 0 ? "+" : "") + x + "%" + " ".repeat(this.spaceRepeat++);
+    },
+    isNumber(str) {
+      let x = Number.parseFloat(str);
+      if (isNaN(x)) return false;
+      return (x > 0 ? "+" : "") + x + " ".repeat(this.spaceRepeat++);
     }
   },
   computed: {
@@ -100,13 +161,56 @@ export default {
       }
 
       return clamp(criticalRate, 0, 100);
+    },
+    target() {
+      if (this.hate.exist.reduce((x, y) => x + y) == 0) {
+        return [0, 0, 0];
+      }
+
+      let vote = [0, 0, 0];
+      let random = [0, 0, 0];
+      let hate = [0, 0, 0];
+      for (random[0] = 6; random[0] <= 9; random[0]++) {
+        for (random[1] = 6; random[1] <= 9; random[1]++) {
+          for (random[2] = 6; random[2] <= 9; random[2]++) {
+            var target = 0;
+            for (var i = 0; i < 3; i++) {
+              hate[i] = this.hate.exist[i]
+                ? random[i] *
+                    (1 + this.hate.hateChange[i].reduce(sum, 0) / 100) +
+                  this.hate.AICondition[i].reduce(sum, 0)
+                : 0;
+              if (hate[i] > hate[target]) target = i;
+            }
+            vote[target] += 1;
+          }
+        }
+      }
+
+      return vote.map(x => x / 64);
     }
   }
 };
 </script>
 
-<style>
+
+<style lang="scss">
+@import "~vue-material/src/components/MdLayout/mixins";
+
 .card {
   margin: 8px;
+}
+
+.content-desktop {
+  @include md-layout-small {
+    display: none;
+  }
+}
+
+.content-phone {
+  display: none;
+  @include md-layout-small {
+    display: block;
+  }
 }
 </style>
