@@ -89,7 +89,7 @@
         <p class="md-display-1 content-phone">
           {{$t('Target =')}}
           <span style="float: right">
-            <span v-for="(item, i) in target" :key="i">{{(item*100).toFixed(1)}}%&nbsp;&nbsp;</span>
+            <span v-for="(item, i) in target" :key="i">{{(item*100).toFixed(1)}}%&nbsp;</span>
           </span>
         </p>
         <p class="md-display-1 content-desktop">{{$t('Target =')}}</p>
