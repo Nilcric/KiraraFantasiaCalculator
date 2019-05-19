@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
-    mode: 'history',
+    // mode: 'legacy',
     // eslint-disable-next-line
     scrollBehavior(to, from, savedPosition) {
         if (to.hash) {
