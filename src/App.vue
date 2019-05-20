@@ -57,6 +57,10 @@
 
     <div class="view">
       <md-toolbar class="toolbar-phone md-primary">
+        <md-button class="md-icon-button" to="/">
+          <md-icon>home</md-icon>
+        </md-button>
+
         <h3 class="md-title" style="flex: 1">{{$t('KiraFanCalc')}}</h3>
         <md-menu md-direction="bottom-start">
           <md-button md-menu-trigger class="md-icon-button">
