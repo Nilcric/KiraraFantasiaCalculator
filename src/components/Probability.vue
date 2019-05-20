@@ -64,9 +64,10 @@
             <md-chips v-model="hate.hateChange[i] " md-input-type="number" :md-format="isPercent">
               <label>{{$t('Hate Change/%')}}</label>
             </md-chips>
-            <md-chips v-model="hate.AICondition[i] " md-input-type="number" :md-format="isNumber">
+            <md-field>
               <label>{{$t('AI Condition')}}</label>
-            </md-chips>
+              <md-input v-model="hate.AICondition[i]" type="number"></md-input>
+            </md-field>
           </div>
         </div>
 
@@ -76,9 +77,10 @@
             <md-chips v-model="hate.hateChange[i] " md-input-type="number" :md-format="isPercent">
               <label>{{$t('Hate Change/%')}}</label>
             </md-chips>
-            <md-chips v-model="hate.AICondition[i] " md-input-type="number" :md-format="isNumber">
+            <md-field>
               <label>{{$t('AI Condition')}}</label>
-            </md-chips>
+              <md-input v-model="hate.AICondition[i]" type="number"></md-input>
+            </md-field>
           </md-tab>
         </md-tabs>
       </md-card-content>
@@ -128,7 +130,7 @@ export default {
       hate: {
         exist: [true, true, true],
         hateChange: [[], [], []],
-        AICondition: [[], [], []]
+        AICondition: [null, null, null]
       }
     };
   },
@@ -178,7 +180,7 @@ export default {
               hate[i] = this.hate.exist[i]
                 ? random[i] *
                     (1 + this.hate.hateChange[i].reduce(sum, 0) / 100) +
-                  this.hate.AICondition[i].reduce(sum, 0)
+                  this.hate.AICondition[i] * 1
                 : 0;
               if (hate[i] > hate[target]) target = i;
             }
