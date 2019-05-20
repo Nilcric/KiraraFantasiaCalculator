@@ -102,6 +102,54 @@
         </div>
       </md-card-content>
     </md-card>
+
+    <md-card class="card" id="gacha">
+      <md-card-header>
+        <div class="md-title">{{$t('Gacha')}}</div>
+      </md-card-header>
+
+      <md-card-content>
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item md-size-100">
+            <md-field>
+              <label>{{$t('Gacha Times')}}</label>
+              <md-input v-model="gacha.total" type="number" min="0" @change="checkStar3"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-size-33">
+            <md-field>
+              <label>{{$t('Star 5')}}</label>
+              <md-input v-model="gacha.star5" type="number" min="0" @change="checkStar3"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-size-33">
+            <md-field>
+              <label>{{$t('Star 4')}}</label>
+              <md-input v-model="gacha.star4" type="number" min="0" @change="checkStar3"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-size-33">
+            <md-field>
+              <label>{{$t('Star 3')}}</label>
+              <md-input v-model="gacha.star3" type="number" min="0" @change="checkTotal"></md-input>
+            </md-field>
+          </div>
+        </div>
+      </md-card-content>
+
+      <md-divider/>
+
+      <md-card-content>
+        <p class="md-display-1">
+          {{$t('Ranking =')}}
+          <span style="float: right">{{(ranking*100).toFixed(1)}}%</span>
+        </p>
+        <p class="md-display-1">
+          {{$t('Average =')}}
+          <span style="float: right">{{averageStar}}</span>
+        </p>
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 
@@ -115,6 +163,14 @@ const clamp = function(x, a, b) {
 const sum = function(x, y) {
   y = Number.parseFloat(y);
   return isNaN(y) ? x : x + y;
+};
+const C = function(n, a) {
+  var ans = 1;
+  for (var i = 0; i < a; i++) {
+    ans *= n - i;
+    ans /= i + 1;
+  }
+  return ans;
 };
 export default {
   name: "Probability",
@@ -131,6 +187,12 @@ export default {
         exist: [true, true, true],
         hateChange: [[], [], []],
         AICondition: [null, null, null]
+      },
+      gacha: {
+        total: null,
+        star5: null,
+        star4: null,
+        star3: null
       }
     };
   },
@@ -144,6 +206,22 @@ export default {
       let x = Number.parseFloat(str);
       if (isNaN(x)) return false;
       return (x > 0 ? "+" : "") + x + " ".repeat(this.spaceRepeat++);
+    },
+    checkStar3() {
+      this.gacha.star3 = this.gacha.total - this.gacha.star5 - this.gacha.star4;
+    },
+    checkTotal() {
+      this.gacha.total =
+        this.gacha.star5 * 1 + this.gacha.star4 * 1 + this.gacha.star3 * 1;
+    },
+    rankingByStar(n, a, p) {
+      var ranking = 0.0;
+      for (var i = 0; i < a; i++) {
+        ranking += C(n, i) * Math.pow(p, i) * Math.pow(1 - p, n - i);
+      }
+      var ranking_ = ranking;
+      ranking_ += C(n, a) * Math.pow(p, a) * Math.pow(1 - p, n - a);
+      return [ranking, ranking_];
     }
   },
   computed: {
@@ -190,6 +268,27 @@ export default {
       }
 
       return vote.map(x => x / 64);
+    },
+    ranking() {
+      var rankingByStar5 = this.rankingByStar(
+        this.gacha.total,
+        this.gacha.star5,
+        0.02
+      );
+      var rankingByStar4 = this.rankingByStar(
+        this.gacha.total - this.gacha.star5,
+        this.gacha.star4,
+        0.12 / 0.98
+      );
+      rankingByStar4 = (rankingByStar4[0] + rankingByStar4[1]) / 2;
+      rankingByStar4 *= rankingByStar5[1] - rankingByStar5[0];
+      return rankingByStar5[0] + rankingByStar4;
+    },
+    averageStar() {
+      var star5 = (this.gacha.total * 0.02).toFixed(1);
+      var star4 = (this.gacha.total * 0.12).toFixed(1);
+      var star3 = (this.gacha.total * 0.86).toFixed(1);
+      return star5 + ", " + star4 + ", " + star3;
     }
   }
 };

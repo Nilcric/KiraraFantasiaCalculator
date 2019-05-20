@@ -56,7 +56,13 @@
     "Hate Change/%": "狙われやすさ/%",
     "AI Condition": "優先攻撃ヘイト",
     "Target =": "狙われる確率＝",
-    "": "",
     "Gacha": "召喚",
+    "Gacha Times": "召喚回数",
+    "Star 5": "★5",
+    "Star 4": "★4",
+    "Star 3": "★3",
+    "Ranking =": "ランキング＝",
+    "Average =": "平均＝",
+    "": "",
     "Status": "ステータス"
 }
