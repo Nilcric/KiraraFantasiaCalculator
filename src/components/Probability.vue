@@ -116,19 +116,19 @@
               <md-input v-model="gacha.total" type="number" min="0" @change="checkStar3"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-size-33">
+          <div class="md-layout-item md-size-33 md-small-size-50">
             <md-field>
               <label>{{$t('Star 5')}}</label>
               <md-input v-model="gacha.star5" type="number" min="0" @change="checkStar3"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-size-33">
+          <div class="md-layout-item md-size-33 md-small-size-50">
             <md-field>
               <label>{{$t('Star 4')}}</label>
               <md-input v-model="gacha.star4" type="number" min="0" @change="checkStar3"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-size-33">
+          <div class="md-layout-item md-size-33 md-small-hide">
             <md-field>
               <label>{{$t('Star 3')}}</label>
               <md-input v-model="gacha.star3" type="number" min="0" @change="checkTotal"></md-input>
