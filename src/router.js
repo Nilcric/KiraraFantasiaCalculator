@@ -31,27 +31,27 @@ export default new Router({
         {
             path: '/home',
             name: 'Home',
-            component: () => import('./components/Home.vue')
+            component: () => import('./views/Home.vue')
         },
         {
             path: '/damage',
             name: 'Damage',
-            component: () => import('./components/Damage.vue')
+            component: () => import('./views/Damage.vue')
         },
         {
             path: '/order',
             name: 'Order',
-            component: () => import('./components/Order.vue')
+            component: () => import('./views/Order.vue')
         },
         {
             path: '/probability',
             name: 'Probability',
-            component: () => import('./components/Probability.vue')
+            component: () => import('./views/Probability.vue')
         },
         {
             path: '/status',
             name: 'Status',
-            component: () => import('./components/Status.vue')
+            component: () => import('./views/Status.vue')
         }
     ]
 })

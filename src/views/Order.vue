@@ -22,19 +22,15 @@
           </div>
 
           <div class="md-layout-item md-size-50 md-small-size-100">
-            <md-chips v-model="order.StatusChange" md-input-type="number" :md-format="isPercent">
+            <Chips v-model="order.StatusChange" md-input-type="number" :md-format="isPercent">
               <label>{{$t('Speed Change/%')}}</label>
-            </md-chips>
+            </Chips>
           </div>
 
           <div class="md-layout-item md-size-50 md-small-size-100">
-            <md-chips
-              v-model="order.LoadFactorReduce"
-              md-input-type="number"
-              :md-format="isPercent"
-            >
+            <Chips v-model="order.LoadFactorReduce" md-input-type="number" :md-format="isPercent">
               <label>{{$t('Load Factor Reduce/%')}}</label>
-            </md-chips>
+            </Chips>
           </div>
         </div>
       </md-card-content>

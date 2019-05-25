@@ -22,9 +22,9 @@
           </div>
 
           <div class="md-layout-item md-size-50 md-small-size-100">
-            <md-chips v-model="critical.StatusChange" md-input-type="number" :md-format="isPercent">
+            <Chips v-model="critical.StatusChange" md-input-type="number" :md-format="isPercent">
               <label>{{$t('Luck Change/%')}}</label>
-            </md-chips>
+            </Chips>
           </div>
 
           <div class="md-layout-item md-size-50 md-small-size-100">
@@ -61,9 +61,9 @@
             <md-checkbox v-model="hate.exist[i]" class="md-primary">
               <p class="md-subheading">{{$t('Chara ' + (i+1))}}</p>
             </md-checkbox>
-            <md-chips v-model="hate.hateChange[i] " md-input-type="number" :md-format="isPercent">
+            <Chips v-model="hate.hateChange[i] " md-input-type="number" :md-format="isPercent">
               <label>{{$t('Hate Change/%')}}</label>
-            </md-chips>
+            </Chips>
             <md-field>
               <label>{{$t('AI Condition')}}</label>
               <md-input v-model="hate.AICondition[i]" type="number"></md-input>
@@ -74,9 +74,9 @@
         <md-tabs class="content-phone">
           <md-tab v-for="i in [0, 1, 2]" :key="i" :md-label="$t('Chara ' + (i+1))">
             <md-checkbox v-model="hate.exist[i]" class="md-primary">{{$t('Exist')}}</md-checkbox>
-            <md-chips v-model="hate.hateChange[i] " md-input-type="number" :md-format="isPercent">
+            <Chips v-model="hate.hateChange[i] " md-input-type="number" :md-format="isPercent">
               <label>{{$t('Hate Change/%')}}</label>
-            </md-chips>
+            </Chips>
             <md-field>
               <label>{{$t('AI Condition')}}</label>
               <md-input v-model="hate.AICondition[i]" type="number"></md-input>

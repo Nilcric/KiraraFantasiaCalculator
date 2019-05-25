@@ -11,7 +11,8 @@ const i18n = new VueI18n({
   messages: {
     'ja': require('./i18n/ja'),
     'zh': require('./i18n/zh'),
-  }
+  },
+  silentTranslationWarn: true
 })
 
 import VueMaterial from 'vue-material'
@@ -19,9 +20,16 @@ import 'vue-material/dist/vue-material.min.css'
 Vue.use(VueMaterial)
 
 
+import Chips from "@/components/Chips";
+Vue.component('Chips', Chips)
+
+
 import router from './router.js'
-new Vue({
+var vue = new Vue({
   i18n,
   router,
   render: h => h(App),
 }).$mount('#app')
+
+
+window.Vue = vue;
