@@ -7,7 +7,6 @@
       :key="chip"
       :md-deletable="!mdStatic"
       :md-clickable="!mdStatic"
-      :md-duplicated="duplicatedChip === chip"
       @keydown.enter="$emit('md-click', chip, key)"
       @click.native="$emit('md-click', chip, key)"
       @md-delete.stop="removeChip(chip)"
@@ -22,7 +21,6 @@
       v-if="!mdStatic && modelRespectLimit"
       :type="mdInputType"
       :placeholder="mdPlaceholder"
-      @input="handleInput"
       @keydown.enter="insertChip"
       @keydown.8="handleBackRemove"
       @blur="insertChip"
@@ -41,17 +39,12 @@ export default {
     mdPlaceholder: [String, Number],
     mdStatic: Boolean,
     mdLimit: Number,
-    mdCheckDuplicated: {
-      type: Boolean,
-      default: false
-    },
     mdFormat: {
       type: Function
     }
   },
   data: () => ({
-    inputValue: "",
-    duplicatedChip: null
+    inputValue: ""
   }),
   computed: {
     chipsClasses() {
@@ -79,15 +72,6 @@ export default {
         return;
       }
 
-      if (this.value.includes(inputValue)) {
-        this.duplicatedChip = null;
-        // to trigger animate
-        this.$nextTick(() => {
-          this.duplicatedChip = inputValue;
-        });
-        return;
-      }
-
       this.value.push(inputValue);
       this.$emit("input", this.value);
       this.$emit("md-insert", inputValue);
@@ -105,30 +89,6 @@ export default {
       if (!this.inputValue) {
         this.removeChip(this.value[this.value.length - 1]);
       }
-    },
-    handleInput() {
-      if (this.mdCheckDuplicated) {
-        this.checkDuplicated();
-      } else {
-        this.duplicatedChip = null;
-      }
-    },
-    checkDuplicated() {
-      if (!this.value.includes(this.formattedInputValue)) {
-        this.duplicatedChip = null;
-        return false;
-      }
-
-      if (!this.mdCheckDuplicated) {
-        return false;
-      }
-
-      this.duplicatedChip = this.formattedInputValue;
-    }
-  },
-  watch: {
-    value() {
-      this.checkDuplicated();
     }
   }
 };

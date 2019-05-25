@@ -62,7 +62,6 @@ export default {
   name: "Order",
   data() {
     return {
-      spaceRepeat: 0,
       order: {
         speed: null,
         LoadFactor: null,
@@ -75,7 +74,7 @@ export default {
     isPercent(str) {
       let x = Number.parseFloat(str);
       if (isNaN(x)) return false;
-      return (x > 0 ? "+" : "") + x + "%" + " ".repeat(this.spaceRepeat++);
+      return (x > 0 ? "+" : "") + x + "%";
     }
   },
   computed: {

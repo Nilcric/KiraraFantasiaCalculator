@@ -312,7 +312,6 @@ export default {
   name: "Damage",
   data() {
     return {
-      spaceRepeat: 0,
       basic: {
         attack: null,
         defence: null,
@@ -418,7 +417,7 @@ export default {
     isPercent(str) {
       let x = Number.parseFloat(str);
       if (isNaN(x)) return false;
-      return (x > 0 ? "+" : "") + x + "%" + " ".repeat(this.spaceRepeat++);
+      return (x > 0 ? "+" : "") + x + "%";
     }
   },
   watch: {

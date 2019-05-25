@@ -176,7 +176,6 @@ export default {
   name: "Probability",
   data() {
     return {
-      spaceRepeat: 0,
       critical: {
         luck1: null,
         luck2: null,
@@ -200,12 +199,12 @@ export default {
     isPercent(str) {
       let x = Number.parseFloat(str);
       if (isNaN(x)) return false;
-      return (x > 0 ? "+" : "") + x + "%" + " ".repeat(this.spaceRepeat++);
+      return (x > 0 ? "+" : "") + x + "%";
     },
     isNumber(str) {
       let x = Number.parseFloat(str);
       if (isNaN(x)) return false;
-      return (x > 0 ? "+" : "") + x + " ".repeat(this.spaceRepeat++);
+      return (x > 0 ? "+" : "") + x;
     },
     checkStar3() {
       this.gacha.star3 = this.gacha.total - this.gacha.star5 - this.gacha.star4;
