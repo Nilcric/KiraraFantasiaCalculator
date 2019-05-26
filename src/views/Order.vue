@@ -271,10 +271,12 @@ export default {
         0.0
       );
 
-      self.acting = true;
-      self.actionChara.orderValue += orderValue;
-      self.relativeOrderValue -= 25;
-      self.sortedCharas.sort((x, y) => y.orderValue - x.orderValue);
+      this.acting = true;
+      var actionChara = this.sortedCharas.pop();
+      actionChara.orderValue += orderValue;
+      this.relativeOrderValue -= 25;
+      this.sortedCharas.unshift(actionChara);
+      this.sortedCharas.sort((x, y) => y.orderValue - x.orderValue);
       setTimeout(function() {
         self.nextTurn();
       }, 500);
@@ -309,8 +311,8 @@ export default {
         speed: this.actionChara.speed,
         orderValue: this.actionChara.orderValue + orderValue
       };
-      return this.sortedCharas
-        .concat(actionChara)
+      return [actionChara]
+        .concat(this.sortedCharas)
         .sort((x, y) => y.orderValue - x.orderValue);
     }
   }
