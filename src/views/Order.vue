@@ -230,9 +230,11 @@ export default {
     },
     calcOrderValue(speed, loadFactor, speedChange, loadFactorReduce) {
       let orderBase = clamp(124 - Math.floor(speed / 2), 0, 100);
-      let orderValue = (orderBase * loadFactor) / 100;
-      orderValue *= clamp(1 - speedChange, 0);
-      orderValue *= clamp(1 - loadFactorReduce, 0);
+      let orderCoef = Math.fround(clamp(1 - speedChange, 0));
+      loadFactor =
+        Math.fround(loadFactor / 100) * Math.fround(1 - loadFactorReduce);
+
+      let orderValue = orderBase * loadFactor * orderCoef;
       return clamp(Math.floor(orderValue), 15, 500);
     },
     init() {
