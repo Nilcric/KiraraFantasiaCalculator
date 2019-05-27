@@ -50,7 +50,7 @@
         <div class="md-title">{{$t('Timeline')}}</div>
       </md-card-header>
 
-      <md-card-content>This part is still working in progress. Now only speed and load factor are considered. Speed change and load factor reduce are not available currently.</md-card-content>
+      <WIP/>
 
       <md-card-content>
         <md-button class="md-primary md-raised" @click="addChara">{{$t('Add Chara')}}</md-button>

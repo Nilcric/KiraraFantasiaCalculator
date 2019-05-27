@@ -21,7 +21,9 @@ Vue.use(VueMaterial)
 
 
 import Chips from "@/components/Chips";
-Vue.component('Chips', Chips)
+import WIP from "@/components/WIP";
+Vue.component('Chips', Chips);
+Vue.component('WIP', WIP);
 
 
 import router from './router.js'
