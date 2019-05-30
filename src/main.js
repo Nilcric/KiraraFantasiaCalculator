@@ -11,6 +11,7 @@ const i18n = new VueI18n({
   messages: {
     'ja': require('./i18n/ja'),
     'zh': require('./i18n/zh'),
+    'en': require('./i18n/en')
   },
   silentTranslationWarn: true
 })
