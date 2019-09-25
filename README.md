@@ -1,3 +1,3 @@
 # KiraraFantasiaCalculator
 
-Moved to gitlab: https://gitlab.com/kirafan/calculator
+Moved to GitLab: https://gitlab.com/kirafan/calculator
